@@ -26,7 +26,7 @@ export default defineConfig((config) => {
         "/api": {
           target: VITE_SERVER_PROXY ?? "",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path) => path.replace("/api", ""),
         },
       },
     },
