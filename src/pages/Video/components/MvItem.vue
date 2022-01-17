@@ -40,6 +40,7 @@ defineProps<{
 .mv-item {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .mv-item-album {
