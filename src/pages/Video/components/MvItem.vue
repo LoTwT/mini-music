@@ -16,7 +16,7 @@ defineProps<{
         height="225"
         class="mv-item-album-image"
         object-fit="fill"
-        src="https://img1.baidu.com/it/u=2075116244,1465061253&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"
+        :src="mv.cover"
         preview-disabled
       />
 

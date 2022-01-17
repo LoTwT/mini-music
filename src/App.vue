@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router"
 import TabBar from "@/components/TabBar/index.vue"
 import { TabBarItemType } from "./components/TabBar/types"
+
+const route = useRoute()
 
 const tabBarItems: TabBarItemType[] = [
   {
@@ -19,20 +22,27 @@ const tabBarItems: TabBarItemType[] = [
 </script>
 
 <template>
-  <router-view class="app-router-view"></router-view>
+  <router-view
+    :class="[
+      route.path === '/music' || route.path === '/video'
+        ? 'app-router-view'
+        : 'app-router-view-normal',
+    ]"
+  ></router-view>
   <tab-bar :tabBarItems="tabBarItems"></tab-bar>
 </template>
-
-<style scoped>
-.app-router-view {
-  height: calc(100vh - 73px);
-}
-</style>
 
 <style>
 body {
   overflow: hidden;
-  height: 100%;
   background-color: #e6e6e6;
+}
+
+.app-router-view {
+  height: calc(100vh - 73px);
+}
+
+.app-router-view-normal {
+  height: 100vh;
 }
 </style>
