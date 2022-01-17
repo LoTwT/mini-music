@@ -6,6 +6,7 @@ import { getTopMVs } from "@/api/video"
 import { ITopMV } from "@/models/video"
 import MvItem from "./components/MvItem.vue"
 import { useReachBottom } from "@/hooks/useReachBottom"
+import { Nullable } from "@/utils/types"
 
 const mvs = ref<ITopMV[]>([])
 const hasMore = ref<boolean>(true)
