@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue"
-import { NSpace, NDivider, NSpin } from "naive-ui"
+import { useRouter } from "vue-router"
+import { NSpace, NDivider } from "naive-ui"
 import { getTopMVs } from "@/api/video"
 import { ITopMV } from "@/models/video"
 import MvItem from "./components/MvItem.vue"
@@ -45,6 +46,9 @@ onMounted(() => {
 onUnmounted(() => {
   videoPageRef.value?.removeEventListener("scroll", onLoadMore)
 })
+
+const router = useRouter()
+const handleMVClick = (mv: ITopMV) => router.push({ path: `/video/${mv.id}` })
 </script>
 
 <template>
@@ -54,7 +58,7 @@ onUnmounted(() => {
       justify="space-around"
     >
       <template v-for="mv in mvs" :key="mv.id">
-        <mv-item :mv="mv"></mv-item>
+        <mv-item :mv="mv" @click="() => handleMVClick(mv)"></mv-item>
       </template>
     </n-space>
 

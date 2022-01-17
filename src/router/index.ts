@@ -21,6 +21,11 @@ const routes: RouteRecordRaw[] = [
     name: "Video",
     component: VidePage,
   },
+  {
+    path: "/video/:id",
+    name: "VideoDetail",
+    component: () => import("@/pages/VideoDetail/index.vue"),
+  },
 ]
 
 const router = createRouter({
