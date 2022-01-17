@@ -25,13 +25,13 @@ const tabBarItems: TabBarItemType[] = [
 
 <style scoped>
 .app-router-view {
-  padding-top: 20px;
-  padding-bottom: 80px;
+  height: calc(100vh - 73px);
 }
 </style>
 
 <style>
 body {
+  overflow: hidden;
   height: 100%;
   background-color: #e6e6e6;
 }
