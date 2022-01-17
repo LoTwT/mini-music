@@ -14,7 +14,7 @@ export interface ITopMV extends IArtist {
   id: number
   lastRank: number
   mark: number
-  mv: IBaseMV[]
+  mv: IBaseMV
   name: string
   playCount: number
   score: number

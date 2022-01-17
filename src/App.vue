@@ -19,8 +19,14 @@ const tabBarItems: TabBarItemType[] = [
 </script>
 
 <template>
-  <router-view></router-view>
+  <router-view class="app-router-view"></router-view>
   <tab-bar :tabBarItems="tabBarItems"></tab-bar>
 </template>
 
-<style></style>
+<style scoped>
+.app-router-view {
+  padding-top: 20px;
+  padding-bottom: 80px;
+  background-color: #e6e6e6;
+}
+</style>
