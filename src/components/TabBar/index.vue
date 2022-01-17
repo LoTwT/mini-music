@@ -16,6 +16,7 @@ const handleTabBarChange = (path: string) => router.push(path)
 
 <template>
   <n-tabs
+    v-if="route.path === '/music' || route.path === '/video'"
     type="segment"
     size="large"
     class="tab-bar"
