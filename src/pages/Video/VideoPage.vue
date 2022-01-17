@@ -8,7 +8,7 @@ import MvItem from "./components/MvItem.vue"
 const mvs = ref<ITopMV[]>([])
 
 onMounted(() => {
-  getTopMVs({ offset: 0, limit: 12 }).then((res) => (mvs.value = res.data))
+  getTopMVs({ offset: 0, limit: 20 }).then((res) => (mvs.value = res.data))
 })
 </script>
 

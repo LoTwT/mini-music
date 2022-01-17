@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ITopMV } from "@/models/video"
 import { NImage, NEllipsis } from "naive-ui"
+import { formatCount, formatDuration } from "@/utils/index"
 
 defineProps<{
   mv: ITopMV
@@ -11,17 +12,21 @@ defineProps<{
   <div class="mv-item">
     <div class="mv-item-album">
       <n-image
+        width="400"
+        height="225"
         class="mv-item-album-image"
         object-fit="fill"
-        src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+        src="https://img1.baidu.com/it/u=2075116244,1465061253&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"
         preview-disabled
       />
 
       <div class="mv-item-album-info">
-        <span class="mv-item-album-info-count">{{ mv.playCount }}</span>
-        <span class="mv-item-album-info-duration">{{
-          mv.mv.videos[0].duration
-        }}</span>
+        <span class="mv-item-album-info-count">
+          {{ formatCount(mv.playCount) }}
+        </span>
+        <span class="mv-item-album-info-duration">
+          {{ formatDuration(mv.mv.videos[0].duration) }}
+        </span>
       </div>
     </div>
 
