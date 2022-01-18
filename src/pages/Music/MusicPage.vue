@@ -43,6 +43,7 @@ onMounted(() => {
 
     <!-- 轮播图 -->
     <n-carousel
+      v-if="banners.length > 0"
       draggable
       autoplay
       loop
@@ -59,20 +60,27 @@ onMounted(() => {
     </n-carousel>
 
     <!-- 推荐视频 -->
-    <area-header title="推荐视频" style="margin-bottom: 16px" />
+    <div v-if="recommendSongs && recommendSongs.length > 0">
+      <area-header title="推荐视频" style="margin-bottom: 16px" />
 
-    <template v-for="song in recommendSongs" :key="song.id">
-      <recommend-song-item :song="song"></recommend-song-item>
-    </template>
+      <template v-for="song in recommendSongs" :key="song.id">
+        <recommend-song-item :song="song"></recommend-song-item>
+      </template>
+    </div>
 
     <!-- 热门歌单 -->
-    <song-menu-area title="热门歌单" :songMenu="hotSongMenu"></song-menu-area>
+    <song-menu-area
+      v-if="hotSongMenu.length > 0"
+      title="热门歌单"
+      :songMenu="hotSongMenu"
+    ></song-menu-area>
 
     <!-- 推荐歌单 -->
     <song-menu-area
+      v-if="recommendSongMenu.length > 0"
       title="推荐歌单"
       :songMenu="recommendSongMenu"
-    ></song-menu-area>
+    />
   </div>
 </template>
 
