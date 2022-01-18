@@ -3,10 +3,11 @@ import { ref, onMounted, computed } from "vue"
 import { NCarousel } from "naive-ui"
 import InputSearch from "@/components/InputSearch/index.vue"
 import AreaHeader from "@/components/AreaHeader/index.vue"
-import { getBanners } from "@/api/music"
-import { IBanner } from "@/models/music"
+import { getBanners, getSongMenu } from "@/api/music"
+import { IBanner, ISongMenuPlaylistItem } from "@/models/music"
 import { useRankingStore } from "@/store"
 import RecommendSongItem from "./components/RecommendSongItem.vue"
+import SongMenuArea from "./components/SongMenuArea.vue"
 
 const banners = ref<IBanner[]>([])
 
@@ -16,10 +17,14 @@ const recommendSongs = computed(
   () => hotRanks.value && hotRanks.value.tracks.slice(0, 6),
 )
 
+const hotSongMenu = ref<ISongMenuPlaylistItem[]>([])
+
 const getPageData = () => {
   getBanners().then((res) => (banners.value = res.banners))
 
   rankingStore.getHotRankingAction()
+
+  getSongMenu().then((res) => (hotSongMenu.value = res.playlists))
 }
 
 onMounted(() => {
@@ -45,6 +50,9 @@ onMounted(() => {
     <template v-for="song in recommendSongs" :key="song.id">
       <recommend-song-item :song="song"></recommend-song-item>
     </template>
+
+    <!-- 热门歌单 -->
+    <song-menu-area title="热门歌单" :songMenu="hotSongMenu"></song-menu-area>
   </div>
 </template>
 

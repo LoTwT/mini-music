@@ -1,5 +1,9 @@
 import { request } from "."
-import { IBannersResponse, IRankingResponse } from "@/models/music"
+import {
+  IBannersResponse,
+  IRankingResponse,
+  ISongMenuResponse,
+} from "@/models/music"
 
 export const getBanners = () =>
   request<IBannersResponse>({
@@ -15,5 +19,21 @@ export const getRankings = (idx: number) =>
     url: "/top/list",
     params: {
       idx,
+    },
+  })
+
+export const getSongMenu = (
+  { cat, limit, offset } = {
+    cat: "全部",
+    limit: 6,
+    offset: 0,
+  },
+) =>
+  request<ISongMenuResponse>({
+    url: "/top/playlist",
+    params: {
+      cat,
+      limit,
+      offset,
     },
   })

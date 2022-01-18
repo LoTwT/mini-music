@@ -142,3 +142,49 @@ export interface IRankingTrack {
   t: number
   v: number
 }
+
+export interface ISongMenuResponse {
+  cat: string
+  code: number
+  more: boolean
+  playlists: ISongMenuPlaylistItem[]
+  total: number
+}
+
+export interface ISongMenuPlaylistItem {
+  adType: number
+  alg: string
+  anonimous: boolean
+  cloudTrackCount: number
+  commentCount: number
+  commentThreadId: string
+  coverImgId: number
+  coverImgId_str: string
+  coverImgUrl: string
+  coverStatus: number
+  createTime: number
+  creator: Record<string, any>
+  description: string
+  highQuality: boolean
+  id: number
+  name: string
+  newImported: boolean
+  ordered: boolean
+  playCount: number
+  privacy: number
+  recommendInfo: Nullable<string>
+  shareCount: number
+  specialType: number
+  status: number
+  subscribed: Nullable<boolean>
+  subscribedCount: number
+  subscribers: any[]
+  tags: string[]
+  totalDuration: number
+  trackCount: number
+  trackNumberUpdateTime: number
+  trackUpdateTime: number
+  tracks: Nullable<any>
+  updateTime: number
+  userId: number
+}
