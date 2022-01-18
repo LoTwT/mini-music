@@ -23,7 +23,7 @@ onMounted(() => {
   <!-- 轮播图 -->
   <n-carousel draggable autoplay loop>
     <template v-for="banner in banners">
-      <n-image :src="banner.imageUrl" preview-disabled />
+      <img style="width: 100%" :src="banner.imageUrl" alt="轮播图" />
     </template>
   </n-carousel>
 </template>
