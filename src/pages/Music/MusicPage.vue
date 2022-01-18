@@ -38,9 +38,19 @@ onMounted(() => {
     <input-search />
 
     <!-- 轮播图 -->
-    <n-carousel draggable autoplay loop>
+    <n-carousel
+      draggable
+      autoplay
+      loop
+      style="width: 100%; min-height: 900px; margin: 16px 0"
+      centered-slides
+    >
       <template v-for="banner in banners">
-        <img style="width: 100%" :src="banner.imageUrl" alt="轮播图" />
+        <img
+          style="width: 100%; min-height: 900px"
+          :src="banner.imageUrl"
+          alt="轮播图"
+        />
       </template>
     </n-carousel>
 

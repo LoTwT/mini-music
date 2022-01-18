@@ -2,6 +2,7 @@
 import { NCarousel, NCard } from "naive-ui"
 import AreaHeader from "@/components/AreaHeader/index.vue"
 import { ISongMenuPlaylistItem } from "@/models/music"
+import { formatCount } from "@/utils"
 
 defineProps<{
   title: string
@@ -13,18 +14,25 @@ defineProps<{
   <div class="song-menu-area">
     <area-header :title="title"></area-header>
 
-    <n-carousel :slides-per-view="4" draggable :space-between="20">
+    <n-carousel
+      :slides-per-view="6"
+      draggable
+      :space-between="20"
+      :show-dots="false"
+    >
       <template v-for="song in songMenu" :key="song.id">
         <n-card>
           <template #cover>
             <div class="song-menu-item-cover">
               <img :src="song.coverImgUrl" alt="歌曲海报" />
-              <span class="song-menu-item-playcount">{{ song.playCount }}</span>
+              <span class="song-menu-item-playcount">{{
+                formatCount(song.playCount)
+              }}</span>
             </div>
           </template>
 
           <template #default>
-            {{ song.name }}
+            <span class="song-menu-item-name">{{ song.name }}</span>
           </template>
         </n-card>
       </template>
@@ -45,8 +53,16 @@ defineProps<{
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  margin: 4px;
+  border-radius: 4px;
+}
+
+.song-menu-item-name {
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>
 

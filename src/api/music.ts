@@ -25,7 +25,7 @@ export const getRankings = (idx: number) =>
 export const getSongMenu = (
   { cat, limit, offset } = {
     cat: "全部",
-    limit: 6,
+    limit: 12,
     offset: 0,
   },
 ) =>
