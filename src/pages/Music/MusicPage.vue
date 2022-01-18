@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import InputSearch from "@/components/InputSearch/index.vue"
+</script>
 
 <template>
-  <div>Music Page</div>
+  <input-search />
 </template>
 
 <style scoped></style>
