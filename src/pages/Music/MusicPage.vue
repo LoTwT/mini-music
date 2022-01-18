@@ -18,6 +18,7 @@ const recommendSongs = computed(
 )
 
 const hotSongMenu = ref<ISongMenuPlaylistItem[]>([])
+const recommendSongMenu = ref<ISongMenuPlaylistItem[]>([])
 
 const getPageData = () => {
   getBanners().then((res) => (banners.value = res.banners))
@@ -25,6 +26,9 @@ const getPageData = () => {
   rankingStore.getHotRankingAction()
 
   getSongMenu().then((res) => (hotSongMenu.value = res.playlists))
+  getSongMenu({ cat: "流行" }).then(
+    (res) => (recommendSongMenu.value = res.playlists),
+  )
 }
 
 onMounted(() => {
@@ -63,6 +67,12 @@ onMounted(() => {
 
     <!-- 热门歌单 -->
     <song-menu-area title="热门歌单" :songMenu="hotSongMenu"></song-menu-area>
+
+    <!-- 推荐歌单 -->
+    <song-menu-area
+      title="推荐歌单"
+      :songMenu="recommendSongMenu"
+    ></song-menu-area>
   </div>
 </template>
 

@@ -23,7 +23,7 @@ export const getRankings = (idx: number) =>
   })
 
 export const getSongMenu = (
-  { cat, limit, offset } = {
+  { cat, limit, offset }: { cat?: string; limit?: number; offset?: number } = {
     cat: "全部",
     limit: 12,
     offset: 0,

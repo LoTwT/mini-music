@@ -63,6 +63,8 @@ defineProps<{
 .song-menu-item-name {
   font-size: 16px;
   font-weight: bold;
+  display: inline-block;
+  margin-top: 8px;
 }
 </style>
 
