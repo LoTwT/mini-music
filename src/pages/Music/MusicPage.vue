@@ -4,18 +4,60 @@ import { NCarousel } from "naive-ui"
 import InputSearch from "@/components/InputSearch/index.vue"
 import AreaHeader from "@/components/AreaHeader/index.vue"
 import { getBanners, getSongMenu } from "@/api/music"
-import { IBanner, ISongMenuPlaylistItem } from "@/models/music"
+import {
+  IBanner,
+  IRankingPlaylist,
+  IRankingTrack,
+  ISongMenuPlaylistItem,
+} from "@/models/music"
 import { useRankingStore } from "@/store"
 import RecommendSongItem from "./components/RecommendSongItem.vue"
 import SongMenuArea from "./components/SongMenuArea.vue"
+import RankingAreaItem from "./components/RankingAreaItem.vue"
 
 const banners = ref<IBanner[]>([])
 
 const rankingStore = useRankingStore()
+
+export interface DealedRanksData {
+  name: string
+  coverImgUrl: string
+  playCount: number
+  songList: IRankingTrack[]
+}
+const dealRanksData = (data: IRankingPlaylist): DealedRanksData => ({
+  name: data.name,
+  coverImgUrl: data.coverImgUrl,
+  playCount: data.playCount,
+  songList: data.tracks.slice(0, 3),
+})
+
+// idx => 0: 新歌 、 1: 热歌 、 2: 原创 、 3: 飙升
+const newRanks = computed(() => rankingStore.newRanking)
+const newRanksData = computed(
+  () => newRanks.value && dealRanksData(newRanks.value),
+)
+
 const hotRanks = computed(() => rankingStore.hotRanking)
 const recommendSongs = computed(
   () => hotRanks.value && hotRanks.value.tracks.slice(0, 6),
 )
+
+const originRanks = computed(() => rankingStore.originRanking)
+const originRanksData = computed(
+  () => originRanks.value && dealRanksData(originRanks.value),
+)
+
+const upRanks = computed(() => rankingStore.upRanking)
+const upRanksData = computed(
+  () => upRanks.value && dealRanksData(upRanks.value),
+)
+
+const ranksDataList = computed(() => [
+  newRanksData.value,
+  originRanksData.value,
+  upRanksData.value,
+])
 
 const hotSongMenu = ref<ISongMenuPlaylistItem[]>([])
 const recommendSongMenu = ref<ISongMenuPlaylistItem[]>([])
@@ -23,7 +65,7 @@ const recommendSongMenu = ref<ISongMenuPlaylistItem[]>([])
 const getPageData = () => {
   getBanners().then((res) => (banners.value = res.banners))
 
-  rankingStore.getHotRankingAction()
+  rankingStore.getRankingsAction()
 
   getSongMenu().then((res) => (hotSongMenu.value = res.playlists))
   getSongMenu({ cat: "流行" }).then(
@@ -81,6 +123,14 @@ onMounted(() => {
       title="推荐歌单"
       :songMenu="recommendSongMenu"
     />
+
+    <!-- 巅峰榜 -->
+    <div class="ranking-list">
+      <area-header title="巅峰榜"></area-header>
+      <template v-for="ranksData in ranksDataList">
+        <ranking-area-item :ranks-data="ranksData" />
+      </template>
+    </div>
   </div>
 </template>
 

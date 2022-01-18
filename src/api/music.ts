@@ -13,7 +13,7 @@ export const getBanners = () =>
     },
   })
 
-// idx => 0: 飙升、1: 热门、2: 新歌、3: 原创
+// idx => 0: 新歌 、 1: 热歌 、 2: 原创 、 3: 飙升
 export const getRankings = (idx: number) =>
   request<IRankingResponse>({
     url: "/top/list",
