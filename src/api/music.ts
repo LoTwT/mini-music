@@ -37,3 +37,12 @@ export const getSongMenu = (
       offset,
     },
   })
+
+// 偷懒了...字段太多了...人已经麻了...
+export const getSongMenuDetail = (id: number) =>
+  request<IRankingResponse>({
+    url: "/playlist/detail/dynamic",
+    params: {
+      id,
+    },
+  })

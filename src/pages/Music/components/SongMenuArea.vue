@@ -3,11 +3,16 @@ import { NCarousel, NCard } from "naive-ui"
 import AreaHeader from "@/components/AreaHeader/index.vue"
 import { ISongMenuPlaylistItem } from "@/models/music"
 import { formatCount } from "@/utils"
+import { useRouter } from "vue-router"
 
 defineProps<{
   title: string
   songMenu: ISongMenuPlaylistItem[]
 }>()
+
+const router = useRouter()
+const handleSongMenuClick = (id: number) =>
+  router.push({ path: "/toplist", query: { id, cate: "menu" } })
 </script>
 
 <template>
@@ -21,7 +26,7 @@ defineProps<{
       :show-dots="false"
     >
       <template v-for="song in songMenu" :key="song.id">
-        <n-card>
+        <n-card @click="() => handleSongMenuClick(song.id)">
           <template #cover>
             <div class="song-menu-item-cover">
               <img :src="song.coverImgUrl" alt="歌曲海报" />

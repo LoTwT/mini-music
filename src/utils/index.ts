@@ -1,4 +1,8 @@
-export const formatCount = (count: number) => {
+import { Nullable } from "./types"
+
+export const formatCount = (count: Nullable<number>) => {
+  if (!count) return ""
+
   if (count > 1e8) return (count / 1e8).toFixed(1) + "亿"
   else if (count > 1e4) return (count / 1e4).toFixed(1) + "万"
   else return count.toString()

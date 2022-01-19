@@ -1,25 +1,45 @@
 <script setup lang="ts">
+import { getSongMenuDetail } from "@/api/music"
+import { IRankingPlaylist } from "@/models/music"
 import { useRankingStore } from "@/store"
-import { computed } from "vue"
+import { Nullable } from "@/utils/types"
+import { ref } from "vue"
 import { useRoute } from "vue-router"
-
-const toplistTypeMap = {
-  N: "newRanking",
-  H: "hotRanking",
-  O: "originRanking",
-  S: "upRanking",
-} as const
+import SongDetailHeader from "./components/SongDetailHeader.vue"
 
 const route = useRoute()
-const toplistType = route.query.type as "N" | "H" | "O" | "S"
+const toplistType = route.query.type as Nullable<"N" | "H" | "O" | "S">
+const id = route.query.id as Nullable<number>
+const cate = route.query.cate as "rank" | "menu"
 
-const rankingStore = useRankingStore()
-const toplistData = computed(() => rankingStore[toplistTypeMap[toplistType]])
+const toplistData = ref<Nullable<IRankingPlaylist>>()
+
+if (cate === "rank" && toplistType) {
+  const toplistTypeMap = {
+    N: "newRanking",
+    H: "hotRanking",
+    O: "originRanking",
+    S: "upRanking",
+  } as const
+
+  const rankingStore = useRankingStore()
+  toplistData.value = rankingStore[toplistTypeMap[toplistType]]
+} else if (cate === "menu" && id) {
+  getSongMenuDetail(id).then((res) => (toplistData.value = res.playlist))
+}
 </script>
 
 <template>
   <div class="top-list">
-    <div class="top-list-title">{{ toplistData?.name }}</div>
+    <div class="top-list-header">
+      <div v-if="cate === 'rank'" class="top-list-title">
+        {{ toplistData?.name }}
+      </div>
+      <song-detail-header
+        v-else-if="cate === 'menu'"
+        :data="toplistData!"
+      ></song-detail-header>
+    </div>
 
     <template v-for="(song, index) in toplistData?.tracks" :key="song.id">
       <div class="top-list-song">
@@ -48,6 +68,10 @@ const toplistData = computed(() => rankingStore[toplistTypeMap[toplistType]])
   display: flex;
   flex-direction: column;
   padding: 4px;
+}
+
+.top-list-header {
+  flex: 1;
 }
 
 .top-list-title {
