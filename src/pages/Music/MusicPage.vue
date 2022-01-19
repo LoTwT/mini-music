@@ -83,7 +83,7 @@ onMounted(() => {
 
 const router = useRouter()
 const handleMoreClick = (toplistType: Nullable<"N" | "H" | "O" | "S">) =>
-  toplistType && router.push({ path: "/toplist", params: { toplistType } })
+  toplistType && router.push({ path: "/toplist", query: { type: toplistType } })
 </script>
 
 <template>

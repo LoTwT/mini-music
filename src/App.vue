@@ -34,7 +34,6 @@ const tabBarItems: TabBarItemType[] = [
 
 <style>
 body {
-  overflow: hidden;
   background-color: #e6e6e6;
 }
 

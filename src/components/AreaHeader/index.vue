@@ -46,6 +46,7 @@ const handleExtraClick = () => emit("trigger:extraClick")
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .extra-img {
