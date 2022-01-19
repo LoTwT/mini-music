@@ -2,6 +2,10 @@
 defineProps<{
   title: string
 }>()
+
+const emit = defineEmits(["trigger:extraClick"])
+
+const handleExtraClick = () => emit("trigger:extraClick")
 </script>
 
 <template>
@@ -10,7 +14,7 @@ defineProps<{
 
     <span>
       <slot name="extra">
-        <span class="area-header-extra">
+        <span class="area-header-extra" @click="handleExtraClick">
           <span class="extra-title">更多</span>
           <img
             class="extra-img"

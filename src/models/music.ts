@@ -39,7 +39,7 @@ export interface IRankingResponse {
 }
 
 export interface IRankingPlaylist {
-  ToplistType: string
+  ToplistType: "N" | "H" | "O" | "S"
   adType: number
   backgroundCoverId: number
   backgroundCoverUrl: Nullable<string>

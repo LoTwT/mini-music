@@ -26,6 +26,11 @@ const routes: RouteRecordRaw[] = [
     name: "VideoDetail",
     component: () => import("@/pages/VideoDetail/index.vue"),
   },
+  {
+    path: "/toplist",
+    name: "TopList",
+    component: () => import("@/pages/TopList/index.vue"),
+  },
 ]
 
 const router = createRouter({

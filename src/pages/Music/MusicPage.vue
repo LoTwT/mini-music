@@ -14,6 +14,8 @@ import { useRankingStore } from "@/store"
 import RecommendSongItem from "./components/RecommendSongItem.vue"
 import SongMenuArea from "./components/SongMenuArea.vue"
 import RankingAreaItem from "./components/RankingAreaItem.vue"
+import { Nullable } from "@/utils/types"
+import { useRouter } from "vue-router"
 
 const banners = ref<IBanner[]>([])
 
@@ -24,12 +26,14 @@ export interface DealedRanksData {
   coverImgUrl: string
   playCount: number
   songList: IRankingTrack[]
+  toplistType: "N" | "H" | "O" | "S"
 }
 const dealRanksData = (data: IRankingPlaylist): DealedRanksData => ({
   name: data.name,
   coverImgUrl: data.coverImgUrl,
   playCount: data.playCount,
   songList: data.tracks.slice(0, 3),
+  toplistType: data.ToplistType,
 })
 
 // idx => 0: 新歌 、 1: 热歌 、 2: 原创 、 3: 飙升
@@ -76,6 +80,10 @@ const getPageData = () => {
 onMounted(() => {
   getPageData()
 })
+
+const router = useRouter()
+const handleMoreClick = (toplistType: Nullable<"N" | "H" | "O" | "S">) =>
+  toplistType && router.push({ path: "/toplist", params: { toplistType } })
 </script>
 
 <template>
@@ -103,7 +111,13 @@ onMounted(() => {
 
     <!-- 推荐视频 -->
     <div v-if="recommendSongs && recommendSongs.length > 0">
-      <area-header title="推荐视频" style="margin-bottom: 16px" />
+      <area-header
+        title="推荐视频"
+        style="margin-bottom: 16px"
+        @trigger:extra-click="
+          () => handleMoreClick(hotRanks && hotRanks.ToplistType)
+        "
+      />
 
       <template v-for="song in recommendSongs" :key="song.id">
         <recommend-song-item :song="song"></recommend-song-item>
@@ -128,7 +142,10 @@ onMounted(() => {
     <div class="ranking-list">
       <area-header title="巅峰榜"></area-header>
       <template v-for="ranksData in ranksDataList">
-        <ranking-area-item :ranks-data="ranksData" />
+        <ranking-area-item
+          @click="() => handleMoreClick(ranksData?.toplistType || null)"
+          :ranks-data="ranksData"
+        />
       </template>
     </div>
   </div>
