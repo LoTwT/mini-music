@@ -31,6 +31,11 @@ const routes: RouteRecordRaw[] = [
     name: "TopList",
     component: () => import("@/pages/TopList/index.vue"),
   },
+  {
+    path: "/musicplayer/:id",
+    name: "MusicPlayer",
+    component: () => import("@/pages/MusicPlayer/index.vue"),
+  },
 ]
 
 const router = createRouter({

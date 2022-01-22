@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { IRankingTrack } from "@/models/music"
+import { useRouter } from "vue-router"
 
 defineProps<{
   song: IRankingTrack
 }>()
+
+const router = useRouter()
+const handleClick = (id: number) => router.push({ path: `/musicplayer/${id}` })
 </script>
 
 <template>
-  <div class="recommend-song-item">
+  <div class="recommend-song-item" @click="() => handleClick(song.id)">
     <img class="poster" :src="song.al.picUrl" alt="歌曲海报" />
 
     <div class="song-info">
