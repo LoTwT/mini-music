@@ -35,6 +35,8 @@ const tabBarItems: TabBarItemType[] = [
 <style>
 body {
   background-color: #e6e6e6;
+  padding: 0;
+  margin: 0;
 }
 
 .app-router-view {
