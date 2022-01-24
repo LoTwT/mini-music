@@ -2,10 +2,16 @@
 import { ISongDetail } from "@/models/player"
 import { Nullable } from "@/utils/types"
 import { NSlider } from "naive-ui"
+import { ref } from "vue"
 
 defineProps<{
   songDetail: Nullable<ISongDetail>
 }>()
+
+const audioRef = ref<Nullable<HTMLAudioElement>>(null)
+
+const handlePauseClick = () => audioRef.value?.pause()
+const handleResumeClick = () => audioRef.value?.play()
 </script>
 
 <template>
@@ -43,6 +49,13 @@ defineProps<{
         class="btn btn-pause"
         src="@/assets/images/player/play_pause.png"
         alt="play-pause"
+        @click="handlePauseClick"
+      />
+      <img
+        class="btn btn-resume"
+        src="@/assets/images/player/play_resume.png"
+        alt="play-resume"
+        @click="handleResumeClick"
       />
       <img
         class="btn btn-next"
@@ -55,6 +68,12 @@ defineProps<{
         alt="play-music"
       />
     </div>
+
+    <audio
+      ref="audioRef"
+      style="display: none"
+      :src="`https://music.163.com/song/media/outer/url?id=${songDetail?.id}.mp3`"
+    />
   </div>
 </template>
 
