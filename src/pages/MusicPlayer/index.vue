@@ -6,6 +6,7 @@ import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 import NavBar from "@/components/NavBar/index.vue"
 import { NCarousel } from "naive-ui"
+import SongTab from "./components/SongTab.vue"
 
 const route = useRoute()
 const id = route.params.id as string
@@ -29,7 +30,7 @@ const changeCurrPage = (index: 0 | 1) => (currPage.value = index)
     <img :src="songDetail?.al.picUrl" alt="bg-cover" class="bg-image" />
     <div class="bg-cover"></div>
 
-    <nav-bar>
+    <nav-bar class="navbar">
       <template #center>
         <div class="nav-bar-center">
           <span
@@ -49,7 +50,7 @@ const changeCurrPage = (index: 0 | 1) => (currPage.value = index)
       </template>
     </nav-bar>
     <n-carousel :show-dots="false" draggable v-model:current-index="currPage">
-      <div>0</div>
+      <song-tab :song-detail="songDetail" />
       <div>1</div>
     </n-carousel>
   </div>
@@ -58,6 +59,13 @@ const changeCurrPage = (index: 0 | 1) => (currPage.value = index)
 <style scoped>
 .song-detail {
   color: white;
+  position: relative;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .bg-image {
